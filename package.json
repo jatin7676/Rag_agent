@@ -16,18 +16,21 @@
     "db:check": "drizzle-kit check"
   },
   "dependencies": {
+    "@ai-sdk/google": "^3.0.80",
+    "@ai-sdk/react": "^3.0.196",
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-dropdown-menu": "^2.1.1",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@t3-oss/env-nextjs": "^0.10.1",
+    "ai": "^6.0.194",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
-    "drizzle-orm": "^0.31.2",
-    "drizzle-zod": "^0.5.1",
+    "drizzle-orm": "^0.45.2",
+    "drizzle-zod": "^0.8.3",
     "lucide-react": "^0.396.0",
     "nanoid": "^5.0.7",
-    "next": "14.2.4",
+    "next": "^14.2.35",
     "next-themes": "^0.3.0",
     "postgres": "^3.4.4",
     "react": "^18",
@@ -35,20 +38,21 @@
     "sonner": "^1.5.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.23.8"
+    "zod": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "dotenv": "^16.4.5",
-    "drizzle-kit": "^0.22.7",
-    "eslint": "^8",
-    "eslint-config-next": "14.2.4",
+    "drizzle-kit": "^0.31.10",
+    "eslint": "^9",
+    "eslint-config-next": "^16.2.7",
     "pg": "^8.12.0",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "tsx": "^4.15.7",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@11.5.0+sha512.dbfcc4f81cf48597afd4bc391ffdf12c11f1a9fb83a395bfa6b0a2d9cc2fd8ffebafdb1ccbd529632153f793904c2615b7f09fe1a345473fd1c35845172a8eb1"
 }
