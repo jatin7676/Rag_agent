@@ -2,11 +2,11 @@
 
 import { useChat } from '@ai-sdk/react';
 import { useEffect, useRef, useState } from 'react';
-import { Bot, User, Database, Search, Send, Sparkles } from 'lucide-react';
+import { Bot, User, Database, Search, Send, Sparkles, AlertTriangle, RotateCw } from 'lucide-react';
 
 export default function Chat() {
   const [input, setInput] = useState('');
-  const { messages, sendMessage, status } = useChat();
+  const { messages, sendMessage, status, error, regenerate } = useChat();
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const isLoading = status === 'submitted' || status === 'streaming';
@@ -14,7 +14,7 @@ export default function Chat() {
   // Auto-scroll to the latest message
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: 'smooth' });
-  }, [messages, status]);
+  }, [messages, status, error]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -78,6 +78,7 @@ export default function Chat() {
               )}
             </div>
           )}
+          {error && <ErrorBanner error={error} onRetry={() => regenerate()} />}
           <div ref={scrollRef} />
         </div>
       </main>
@@ -160,6 +161,27 @@ function ToolCall({
           {JSON.stringify(input, null, 2)}
         </pre>
       )}
+    </div>
+  );
+}
+
+function ErrorBanner({ error, onRetry }: { error: Error; onRetry: () => void }) {
+  return (
+    <div className="mt-4 flex items-start gap-3 rounded-xl border border-destructive/40 bg-destructive/10 px-4 py-3 text-sm text-destructive">
+      <AlertTriangle className="mt-0.5 h-4 w-4 shrink-0" />
+      <div className="flex-1">
+        <p className="font-medium">Couldn&apos;t get a response</p>
+        <p className="mt-0.5 text-destructive/90">
+          {error.message || 'An unexpected error occurred. Please try again.'}
+        </p>
+      </div>
+      <button
+        onClick={onRetry}
+        className="flex shrink-0 items-center gap-1.5 rounded-lg border border-destructive/40 px-2.5 py-1.5 text-xs font-medium transition-colors hover:bg-destructive/15"
+      >
+        <RotateCw className="h-3.5 w-3.5" />
+        Retry
+      </button>
     </div>
   );
 }

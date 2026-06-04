@@ -45,5 +45,24 @@ export async function POST(req: Request) {
     
   });
 
-  return result.toUIMessageStreamResponse();
+  return result.toUIMessageStreamResponse({
+    onError: error => {
+      console.error('Chat API error:', error);
+
+      const message =
+        error instanceof Error ? error.message : String(error);
+
+      // Detect quota / rate-limit errors from the Google provider.
+      const isQuota =
+        /quota|rate limit|resource[_ ]exhausted|429|too many requests/i.test(
+          message,
+        );
+
+      if (isQuota) {
+        return 'Your Google AI API quota is exhausted or rate-limited. Please wait a bit and try again, switch to another model, or check your usage/billing in Google AI Studio.';
+      }
+
+      return `Something went wrong while generating a response: ${message}`;
+    },
+  });
 }
